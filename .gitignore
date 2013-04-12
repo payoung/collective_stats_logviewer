@@ -1,1 +1,11 @@
 *.pyc
+*.pyo
+.installed.cfg
+src/*.egg-info
+buildout-cache
+develop-eggs
+var
+parts
+bin
+buildout-cache
+.DS_Store
