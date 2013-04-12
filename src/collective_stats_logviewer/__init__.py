@@ -22,12 +22,13 @@ def init_db():
     db.create_all()
 
 @app.route('/')
+@app.route('/index')
 def index():
     todo_list = TodoItem.query.all()
     return render_template('hello.html', todos=todo_list)
 
 
-@app.route('/add', methods=['POST',])
+@app.route('/add', methods=['POST'])
 def add_todo():
     if 'todo_item' in request.form:
         todo = TodoItem(description=request.form['todo_item'])
