@@ -8,7 +8,7 @@ Base = declarative_base()
 
 
 class Log(Base):
-    __table__ = "logs"
+    __tablename__ = "logs"
     id = Column(Integer, primary_key=True)
     access_time = Column(DateTime)
     publisher_time = Column(Float)
@@ -23,3 +23,20 @@ class Log(Base):
     url = Column(String)
     start_RSS = Column(Float)
     end_RSS = Column(Float)
+
+    def __init__(self, access_time, publisher_time, traverse_time, commit_time, transform_time, setstate_time, total_object_loads, object_loads_from_cache, objects_modified, action, url, start_RSS, end_RSS):
+        self.access_time = access_time
+        self.publisher_time = publisher_time
+        self.traverse_time = traverse_time
+        self.commit_time = commit_time
+        self.transform_time = transform_time
+        self.setstate_time = setstate_time
+        self.total_object_loads = total_object_loads
+        self.object_loads_from_cache = object_loads_from_cache
+        self.objects_modified = objects_modified
+        self.action = action
+        self.url = url
+        self.start_RSS = start_RSS
+        self.end_RSS = end_RSS
+
+Base.metadata.create_all(engine)
