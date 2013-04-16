@@ -22,17 +22,6 @@ def init_db():
     db.create_all()
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index/')
 def index():
-    todo_list = TodoItem.query.all()
-    return render_template('hello.html', todos=todo_list)
-
-
-@app.route('/add', methods=['POST'])
-def add_todo():
-    if 'todo_item' in request.form:
-        todo = TodoItem(description=request.form['todo_item'])
-        db.session.add(todo)
-        db.session.commit()
-        return redirect(url_for('index'))
-    return "Unknown Error"
+    return render_template("index.html")
