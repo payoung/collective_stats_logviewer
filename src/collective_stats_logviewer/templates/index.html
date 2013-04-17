@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ =<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,9 @@
     <script src="../static/js/jquery.flot.js"></script>
     <link rel="stylesheet" type="text/css" 
           href="../static/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" 
+    <link rel="stylesheet" type="text/css"
           href="../static/css/logviewer.css">
-    <link rel="stylesheet" type="text/css" 
+    <link rel="stylesheet" type="text/css"
           href="../static/css/bootstrap-responsive.min.css">
   </head>
   <body>
@@ -19,11 +19,11 @@
       <h1>'Speed up yo shit' &mdash; A Dashboard</h1>
       <h2>Instance Summary</h2>
       <dl class="summary">
-        <dd>Handling <strong>1.740 requests/second</strong>.</dd>
-        <dd>Average rendering time: <strong>0.218 seconds</strong>.</dd>
-        <dd>Should be able to handle <strong>4.57 requests/sec</strong>.</dd>
+        <dd>Handling <strong>{{ data.reqs_sec }} requests/second</strong>.</dd>
+        <dd>Average rendering time: <strong>{{ data.time_per_request}} seconds</strong>.</dd>
+        <dd>Should be able to handle <strong>{{ data.optimal_requests }} requests/sec</strong>.</dd>
         <!-- put a warning color if more than 50%, error color if more than 75% -->
-        <dd>Current Capacity: <span class="text-info">38.07%</span></dd>
+        <dd>Current Capacity: <span class="text-info">{{ data.cc_percentage }}</span></dd>
       </dl>
       <h3>Slow Pages</h3>
       <!-- ordered by average time to render, longest first -->
@@ -33,9 +33,9 @@
             <dt class="url-help">
               <a href="javascript:void(0);">/newscenter/inthenewsview</a>
 &rArr;
-              <span class="average-render-time text-error">2.920 secs on average</span>
+              <span class="average-render-time text-error">{{ data.news }}</span>
             </dt>
-            
+
             <dd>Overall server time spent rendering this page: <span  class="text-error">2453.00 seconds</span></dd>
             <dd>Average time to render: 2.920</dd>
             <dd>Num hits: 840 </dd>
@@ -57,7 +57,7 @@
 &rArr;
               <span class="average-render-time text-warning">1.831 secs on average</span>
             </dt>
-            
+
             <dd>Overall server time spent rendering this page: <span  class="text-warning">23.00 seconds</span></dd>
             <dd>Average time to render: 1.831</dd>
             <dd>Num hits: 840 </dd>
