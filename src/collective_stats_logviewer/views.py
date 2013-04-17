@@ -24,4 +24,6 @@ def init_db():
 @app.route('/')
 @app.route('/index/')
 def index():
-    return render_template("index.html")
+    data_store = {'reqs_sec': 1.74011, 'time_per_request': 0.2188, 'optimal_requests': 4.577, 'news': 38.88,
+    'time_per_request': 2.46}
+    return render_template("index.html", data=data_store)
