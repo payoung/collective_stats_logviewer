@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """Startup utilities"""
 import os
 import sys
@@ -25,7 +25,7 @@ del _buildout_path
 
 # bin/paster serve parts/etc/deploy.ini
 def make_app(global_conf={}, config=DEPLOY_CFG, debug=False):
-    from collective_stats_logviewer import app
+    from collective_stats_logviewer.views import app
     app.config.from_pyfile(abspath(config))
     app.debug = debug
     return app
