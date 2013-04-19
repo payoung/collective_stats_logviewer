@@ -1,4 +1,3 @@
-#put me in base(?) core(?)/scripts
 import json
 import fileinput
 import requests
