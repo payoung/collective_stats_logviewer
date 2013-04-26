@@ -39,7 +39,7 @@ def response_time_details():
            "render_time": "0.7223",
        },
        { "timestamp": "2013-02-18T20:18:25",
-           "render_time": "0.4157",
+           "render_time": "1.4157",
        },
        { "timestamp": "2013-02-18T20:21:14",
            "render_time": "4.567",

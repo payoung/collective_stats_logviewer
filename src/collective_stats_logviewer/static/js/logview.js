@@ -19,8 +19,12 @@ function plot(){
 			show: true
 		},
         xaxis: { mode: "time",  
-                 timeformat: "%Y-%m-%dT%h%m%s",   
-                 }
+                 timeformat: "%M:%S",   
+                 minTickSize: [1, "second"]
+        },
+        yaxis: {
+            ticks: [0,.5,1,2,3,4,6,10],
+        }
 	};
 
     var data = [];
@@ -28,7 +32,7 @@ function plot(){
     function onDataReceived(series) {
         $.each(series.data, function(key, value){
             time = value.render_time;
-            timestamp = value.timestamp;
+            timestamp = new Date(value.timestamp).getTime();
             data.push([time, timestamp]);
         });
 		$.plot("#placeholder1", data, options);

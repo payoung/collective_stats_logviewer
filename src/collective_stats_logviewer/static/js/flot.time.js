@@ -194,7 +194,7 @@ API.txt for details.
 		[1, "year"]]);
 
 	function init(plot) {
-		plot.hooks.processOptions.push(function (plot, options) {
+		plot.hooks.processDatapoints.push(function (plot, series, datapoints) {
 			$.each(plot.getAxes(), function(axisName, axis) {
 
 				var opts = axis.options;
