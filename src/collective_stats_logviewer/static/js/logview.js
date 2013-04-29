@@ -6,9 +6,7 @@ jQuery(document).ready(function() {
         $('dl.url-details dd').toggle();
         plot();
     });
-	
 });
-
 
 function plot(){
 	var options = {
@@ -18,8 +16,8 @@ function plot(){
 		points: {
 			show: true
 		},
-        xaxis: { mode: "time",  
-                 timeformat: "%M:%S",   
+        xaxis: { mode: "time",
+                 timeformat: "%M:%S",
                  minTickSize: [1, "second"]
         },
         yaxis: {
@@ -28,15 +26,21 @@ function plot(){
 	};
 
     var data = [];
-
     function onDataReceived(series) {
         $.each(series.data, function(key, value){
-            time = value.render_time;
-            timestamp = new Date(value.timestamp).getTime();
-            data.push([time, timestamp]);
+            time = parseFloat(value.render_time);
+            timestamp = (new Date(value.timestamp)).getTime();
+            data.push([timestamp, time]);
         });
-		$.plot("#placeholder1", data, options);
-	}
+
+		$.plot($("#placeholder1"), [
+        {
+            data: data,
+            bars: {show: true, fill: 1, fillColor: "#757dad", align: "center"},
+            color: "#454d7d"
+        }
+    ], options);
+	};
 
 	$.ajax({
 		url: '/reponse_time_details?url=/newscenter/inthenewsview',
@@ -44,5 +48,4 @@ function plot(){
 		dataType: "json",
 		success: onDataReceived
 	});
-
 }
