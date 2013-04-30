@@ -11,17 +11,21 @@ jQuery(document).ready(function() {
 function plot(){
 	var options = {
 		lines: {
-			show: true
+			show: true,
 		},
 		points: {
-			show: true
+			show: true,
+            fillColor: "#0062E3",
 		},
         xaxis: { mode: "time",
                  timeformat: "%M:%S",
                  minTickSize: [1, "second"]
         },
         yaxis: {
-            ticks: [0,.5,1,2,3,4,6,10],
+            ticks: [0,0.5,1,2,3,4,6,10],
+        },
+        legend: {
+            show: true
         }
 	};
 
@@ -35,9 +39,9 @@ function plot(){
 
 		$.plot($("#placeholder1"), [
         {
+            label: "Render Time",
             data: data,
-            bars: {show: true, fill: 1, fillColor: "#757dad", align: "center"},
-            color: "#454d7d"
+            color: "#0062E3",
         }
     ], options);
 	};
