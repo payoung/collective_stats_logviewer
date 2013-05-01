@@ -11,7 +11,7 @@ Base = declarative_base()
 def init_db():
 	db.create_all()
 
-class Log(Base):
+class Log(db.Model):
     __tablename__ = "logs"
     id = Column(Integer, primary_key=True)
     access_time = Column(DateTime)
