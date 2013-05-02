@@ -3,12 +3,13 @@ jQuery(document).ready(function() {
         $('dl.url-details dd').hide();
     });
     $(document).on('click', 'dt.url-help', function(){
-        $('dl.url-details dd').toggle();
-        plot();
+        $(this).parents('dl').find('dd').toggle()
+        graph_div =  $(this).parents('dl').find('div.graph-placeholder').first()
+        plot(graph_div);
     });
 });
 
-function plot(){
+function plot(graph_div){
 	var options = {
 		lines: {
 			show: true,
@@ -37,7 +38,7 @@ function plot(){
             data.push([timestamp, time]);
         });
 
-		$.plot($("#placeholder1"), [
+		$.plot(graph_div, [
         {
             label: "Render Time",
             data: data,

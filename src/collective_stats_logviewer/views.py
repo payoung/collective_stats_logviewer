@@ -20,8 +20,15 @@ def init_db():
 @app.route('/')
 @app.route('/index/')
 def index():
-    data_store = {'reqs_sec': 1.74011, 'time_per_request': 0.2188, 'optimal_requests': 4.577, 'news': 38.88,
-    'time_per_request': 2.46}
+    data_store = {}
+    data_store['instance_stats'] = {'reqs_sec': 1.74011, 'time_per_request': 0.2188, 'optimal_requests': 4.577, 'news': 38.88,
+                                    'time_per_request': 2.46, 'cc_percentage': 32}
+    data_store['slow_pages'] = [{'url': '/newscenter/inthenewsview', 'avg_time': 38.88},
+                                {'url': '/departments/name', 'avg_time': 31.25}]
+    data_store['server_chokers'] = [{'url': '/departments/name/', 'total_server_time': 246.88},
+                                   {'url': '/departments/ners/', 'total_server_time': 166.87}]
+    data_store['memory_hogs'] = [{'url': '/departments/cheme/', 'memory_used': 8.76},
+                                 {'url': '/departments/name/', 'memory_used': 8.59}]
     return render_template("index.html", data=data_store)
 
 

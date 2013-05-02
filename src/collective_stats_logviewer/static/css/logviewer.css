@@ -9,7 +9,7 @@ ol.url-details-list li{
 
 }
 
-#placeholder1 {
-    width: 500px;
-    height: 300px;
+.graph-placeholder {
+  width: 500px;
+  height: 300px; 
 }

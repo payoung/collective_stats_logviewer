@@ -12,7 +12,7 @@ def do_it(file='log.log'):
     drawer = {}
     with open(file, 'rb') as logfile:
         for line in logfile.readlines():
-            num_requests += 1
+            num_requests += 1 # This should perhaps do some checking, when zope throws an error, it's counting requests that aren't actually taking place
             if line.count('INFO collective.stats'):
                 pattern = re.compile("^(?P<access_time>\d+-\d+-\w+:\d+:\d+) INFO collective\.stats \| (?P<publisher_time>\d+\.\d+) (?P<traverse_time>\d+\.\d+) (?P<commit_time>\d+\.\d+) (?P<transform_time>\d+\.\d+) (?P<setstate_time>\d+\.\d+) (?P<total_object_loads>\d+) (?P<object_loads_from_cache>\d+) (?P<objects_modified>\d+) \| (?P<action>\w+:)(?P<url>.*) \| .* \| RSS\: (?P<start_RSS>\d+) - (?P<end_RSS>\d+)")
                 match_result = re.match(pattern, line)
