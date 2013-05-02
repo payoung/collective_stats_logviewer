@@ -35,18 +35,17 @@
             <dl class="url-details">
               <dt class="url-help">
                 <a href="javascript:void(0);">{{ slow_page.url }}</a>&rArr;
-                <span class="average">Average rendering time: {{ slow_page.avg_time }}</span><!--Add javascript to add erro classes based avg render time-->
+                <span class="average">Average rendering time: {{ slow_page.avg_time }} seconds</span><!--Add javascript to add erro classes based avg render time-->
               </dt>
-              <dd class='overall'>Overall rendering time: </dd>
-              <dd class='num-hits'>Num hits: </dd>
-              <dd class='cached-benefit'>If you cached this page as a middle man, you would save of server load</dd>
+              <dd>Overall rendering time: <span class='overall'></span> seconds</dd>
+              <dd>Num hits: <span  class='num-hits'></span></dd>
+              <dd>If you cached this page as a middle man, you would save <span class='cached-benefit'></span>% of server load</dd>
               <dd>
                 <a href="{{ slow_page.url }}">View in new window</a>
               </dd>
               <dd class="url-graph">
-                <p>A line graph history of the time to render these requests. Note that this is an image at the moment, but this will be converted to an imaging library.</p>
                 <div class="graph-placeholder">
-                </div>
+              </div>
               </dd>
             </dl>
           </li>
@@ -60,18 +59,16 @@
             <dl class="url-details">
               <dt class="url-help">
                 <a href="javascript:void(0);">{{ server_choker.url }}</a>&rArr;
-                <span class="total-server-time">Total Server Time: {{ server_choker.total_server_time }}</span><!--Add javascript to add erro classes based avg render time-->
+                <span class="total-server-time">Total Server Time: {{ server_choker.total_server_time }} seconds</span><!--Add javascript to add erro classes based avg render time-->
               </dt>
-              <dd class='average'>Average time to render: </dd>
-              <dd class='num-hits'>Num hits: </dd>
-              <dd class='cached-benefit'>If you cached this page as a middle man, you would save of server load</dd>
+              <dd>Average time to render: <span class='avg'></span> seconds</dd>
+              <dd>Num hits: <span class='num-hits'></span></dd>
+              <dd>If you cached this page as a middle man, you would save <span class="cached-benefit"></span> of server load</dd>
               <dd>
                 <a href="{{ server_choker.url }}">View in new window</a>
               </dd>
               <dd class="url-graph">
-                <p>A line graph history of the time to render these requests. Note that this is an image at the moment, but this will be converted to an imaging library.</p>
-                <div class="graph-placeholder">
-                </div>
+                <div class="graph-placeholder"></div>
               </dd>
             </dl>
           </li>
@@ -87,17 +84,15 @@
                 <a href="javascript:void(0);">{{ memory_hog.url }}</a>&rArr;
                 <span class="percent-memory">Percent of Memory Used: {{ memory_hog.memory_used }}%</span><!--Add javascript to add erro classes based avg render time-->
               </dt>
-              <dd class='total'>Total time spent rending this page: </dd>
-              <dd class='average'>Average time to render: </dd>
-              <dd class='num-hits'>Num hits: </dd>
-              <dd class='cached-benefit'>If you cached this page as a middle man, you would save of server load</dd>
+              <dd>Total time spent rending this page: <span class='overall'></span> seconds</dd>
+              <dd>Average time to render: <span class="avg"></span> seconds</dd>
+              <dd>Num hits: <span class='num-hits'></span></dd>
+              <dd>If you cached this page as a middle man, you would save <span class='cached-benefit'></span>% of server load</dd>
               <dd>
                 <a href="{{ memory_hog.url }}">View in new window</a>
               </dd>
               <dd class="url-graph">
-                <p>A line graph history of the time to render these requests. Note that this is an image at the moment, but this will be converted to an imaging library.</p>
-                <div class="graph-placeholder">
-                </div>
+                <div class="graph-placeholder"></div>
               </dd>
             </dl>
           </li>

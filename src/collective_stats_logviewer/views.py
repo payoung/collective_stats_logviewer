@@ -36,7 +36,7 @@ def index():
 def response_time_details():
     url = "/newscenter/inthenewsview"
 
-    data = [
+    graph_data = [
        { "timestamp": "2013-02-18T20:18:15",
            "render_time": "0.7223",
        },
@@ -47,5 +47,7 @@ def response_time_details():
            "render_time": "4.567",
        }
     ]
-    return jsonify(url=url, data=data)
+
+    stats_data = {'overall': 42.77, 'num_hits': 14, 'cached_benefit': 1.0003, 'avg': 2.3}
+    return jsonify(url=url, graph_data=graph_data, stats_data=stats_data)
 
