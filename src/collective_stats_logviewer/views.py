@@ -3,11 +3,6 @@ from flask import Flask
 from flask import jsonify
 from model import db
 
-def init_db():
-    """ Initialize the database """
-    db.create_all()
-
-
 class _DefaultSettings(object):
     USERNAME = 'world'
     SECRET_KEY = 'development key'
