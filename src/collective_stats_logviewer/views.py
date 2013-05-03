@@ -1,6 +1,7 @@
 from flask import render_template
 from flask import Flask
 from flask import jsonify
+from flask import request
 from model import db
 
 class _DefaultSettings(object):
@@ -34,7 +35,10 @@ def index():
 
 @app.route('/reponse_time_details/', methods=['GET', 'POST'])
 def response_time_details():
-    url = "/newscenter/inthenewsview"
+
+    url = request.args.get('url', '')
+
+    # Process the url here
 
     graph_data = [
        { "timestamp": "2013-02-18T20:18:15",

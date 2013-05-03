@@ -4,13 +4,14 @@ jQuery(document).ready(function() {
     });
     $(document).on('click', 'dt.url-help', function(){
         $(this).parents('dl').find('dd').toggle()
+        url = $(this).find('a').text()
         graph_div =  $(this).parents('dl').find('div.graph-placeholder').first()
-        plot(graph_div);
+        plot(graph_div, url);
         // Need a fix so that ajax isn't called each time the dt.url-help link is clicked
     });
 });
 
-function plot(graph_div){
+function plot(graph_div, url){
 	var options = {
 		lines: {
 			show: true,
@@ -59,8 +60,9 @@ function plot(graph_div){
 	};
 
 	$.ajax({
-		url: '/reponse_time_details?url=/newscenter/inthenewsview',
+		url: '/reponse_time_details',
 		type: "GET",
+        data: url,
 		dataType: "json",
 		success: onDataReceived
 	});
