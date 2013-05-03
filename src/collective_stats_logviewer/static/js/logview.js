@@ -3,8 +3,13 @@ jQuery(document).ready(function() {
         $('dl.url-details dd').hide();
     });
     $(document).on('click', 'dt.url-help', function(){
+        // Finds all the sibling dd elements of the link
+        // clicked and toggles them as showing or not showing
         $(this).parents('dl').find('dd').toggle()
+        // Grabs the url of the link that was clicked
         url = $(this).find('a').text()
+        // Assigns graph_div to the corresponding div that will be used
+        // to render the graph for the link
         graph_div =  $(this).parents('dl').find('div.graph-placeholder').first()
         plot(graph_div, url);
         // Need a fix so that ajax isn't called each time the dt.url-help link is clicked
