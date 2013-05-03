@@ -60,9 +60,9 @@ function plot(graph_div, url){
 	};
 
 	$.ajax({
-		url: '/reponse_time_details',
+		url: '/reponse_time_details/',
 		type: "GET",
-        data: url,
+        data: {'url': url},
 		dataType: "json",
 		success: onDataReceived
 	});
