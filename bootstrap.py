@@ -52,7 +52,7 @@ options, args = parser.parse_args()
 if options.config_file is not None:
     args += ['-c', options.config_file]
 
-options.version="1.5.1"
+options.version="2.1.0"
 if options.version is not None:
     VERSION = '==%s' % options.version
 else:
