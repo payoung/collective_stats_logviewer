@@ -2,6 +2,7 @@ jQuery(document).ready(function() {
     $(document).on('ready', function(){
         $('dl.url-details dd').hide();
     });
+
     $(document).on('click', 'dt.url-help', function(){
         // Finds all the sibling dd elements of the link
         // clicked and toggles them as showing or not showing
