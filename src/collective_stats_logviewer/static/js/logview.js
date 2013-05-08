@@ -15,7 +15,7 @@ jQuery(document).ready(function() {
         // to render the graph for the link
         graph_div =  $(this).parents('dl').find('div.graph-placeholder').first()
 
-        // create place to put fetch status to so that we fetch data only once
+        // create place to put fetch status so that we fetch data only once
         if (typeof $(graph_div).data("fetched") === "undefined") {
             // alert("in $.on(), fetched is undefined");
             $(graph_div).data("fetched", "no");
@@ -28,6 +28,8 @@ jQuery(document).ready(function() {
 });
 
 function plot(graph_div, url) {
+
+    // note: graph_div is a JQuery object
 
     // hold options for flot graph
     var options = {
@@ -55,7 +57,7 @@ function plot(graph_div, url) {
 
     // call back function when received data from server
     function onDataReceived(response) {
-        // on success marked fetched = yes
+        // on success mark fetched = yes
         // alert("in onDataReceived(), fetched is: " + $(graph_div).data("fetched"));
         $(graph_div).data("fetched", "yes");
         // alert("in onDataReceived(), fetched is now: " + $(graph_div).data("fetched"));
@@ -83,13 +85,25 @@ function plot(graph_div, url) {
         // For these next 2, jquery won't be able to find span.overall for a server choker,
         // or a span.avg for a slow page (since the avg is already set by Python as it's a header).
         // Doesn't seem to cause any problems, but is allowing it to fail like this good practice?
-        graph_div.parents('dl').find('.overall').text(response.stats_data.overall)
-        graph_div.parents('dl').find('.avg').text(response.stats_data.avg)
+        // graph_div.parents('dl').find('.overall').text(response.stats_data.overall)
+        var spanOverall = graph_div.parents('dl').find('.overall');
+        // if the span = overall exists
+        if (spanOverall.length > 0) {
+            spanOverall.text(response.stats_data.overall)
+        }
+
+        // graph_div.parents('dl').find('.avg').text(response.stats_data.avg)
+        var spanAvg = graph_div.parents('dl').find('.avg');
+        // if the span = avg exists
+        if (spanAvg.length > 0) {
+            // alert("found .avg span")
+            spanAvg.text(response.stats_data.avg)
+        }
 	};
 
     // check if data needed to be fetched
     if ((typeof $(graph_div).data("fetched") === "undefined") ||
-        ($(graph_div).data("fetched") === "no") ) {
+        ($(graph_div).data("fetched") === "no")) {
             // alert("fetched is: " + $(graph_div).data("fetched"));
             // alert("about to fetch data");
             $.ajax({
