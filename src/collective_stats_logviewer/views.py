@@ -42,9 +42,9 @@ def index():
 def response_time_details():
     """Queries db for detailed stats for a specific url. This function is
     called from an ajax request, which sends the url as a GET request
-    and returns a json object with details about rending time, num hits, etc
+    and returns a json object with details about rendering time, num hits, etc
     for that url. This also returns the data necessary to render the graph for
-    the url."""
+    that url."""
 
     url = request.args.get('url', '')
 

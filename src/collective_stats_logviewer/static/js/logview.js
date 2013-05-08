@@ -14,14 +14,23 @@ jQuery(document).ready(function() {
         // Assigns graph_div to the corresponding div that will be used
         // to render the graph for the link
         graph_div =  $(this).parents('dl').find('div.graph-placeholder').first()
-        plot(graph_div, url);
 
-        // Need a fix so that ajax isn't called each time the dt.url-help link is clicked
+        // create place to put fetch status to so that we fetch data only once
+        if (typeof $(graph_div).data("fetched") === "undefined") {
+            // alert("in $.on(), fetched is undefined");
+            $(graph_div).data("fetched", "no");
+            // alert("in $.on(), fetched is now: " + $(graph_div).data("fetched"));
+        }
+
+        // start to plot
+        plot(graph_div, url);
     });
 });
 
-function plot(graph_div, url){
-	var options = {
+function plot(graph_div, url) {
+
+    // hold options for flot graph
+    var options = {
 		lines: {
 			show: true,
 		},
@@ -41,9 +50,18 @@ function plot(graph_div, url){
         }
 	};
 
+    // hold data for flot to build the graph
     var data = [];
+
+    // call back function when received data from server
     function onDataReceived(response) {
-        $.each(response.graph_data, function(key, value){
+        // on success marked fetched = yes
+        // alert("in onDataReceived(), fetched is: " + $(graph_div).data("fetched"));
+        $(graph_div).data("fetched", "yes");
+        // alert("in onDataReceived(), fetched is now: " + $(graph_div).data("fetched"));
+
+        // iterate through data
+        $.each(response.graph_data, function(key, value) {
             time = parseFloat(value.render_time);
             timestamp = (new Date(value.timestamp)).getTime();
             data.push([timestamp, time]);
@@ -64,16 +82,22 @@ function plot(graph_div, url){
 
         // For these next 2, jquery won't be able to find span.overall for a server choker,
         // or a span.avg for a slow page (since the avg is already set by Python as it's a header).
-        // Doesn't seem to cause any problems, but is allowinig it to fail like this good practice?
+        // Doesn't seem to cause any problems, but is allowing it to fail like this good practice?
         graph_div.parents('dl').find('.overall').text(response.stats_data.overall)
         graph_div.parents('dl').find('.avg').text(response.stats_data.avg)
 	};
 
-	$.ajax({
-		url: '/response_time_details/',
-		type: "GET",
-        data: {'url': url},
-		dataType: "json",
-		success: onDataReceived
-	});
+    // check if data needed to be fetched
+    if ((typeof $(graph_div).data("fetched") === "undefined") ||
+        ($(graph_div).data("fetched") === "no") ) {
+            // alert("fetched is: " + $(graph_div).data("fetched"));
+            // alert("about to fetch data");
+            $.ajax({
+                url: '/response_time_details/',
+                type: "GET",
+                data: {'url': url},
+                dataType: "json",
+                success: onDataReceived
+        });
+    } // end if
 }
