@@ -4,7 +4,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Float
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/stats.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stats.db'
+
 db = SQLAlchemy(app)
 Base = declarative_base()
 
@@ -42,3 +43,65 @@ class Log(db.Model):
         self.url = url
         self.start_RSS = start_RSS
         self.end_RSS = end_RSS
+
+def query_number_of_requests():
+    # Number of requests
+    rows = db.session.query(Log)
+    num_requests = rows.count()
+    return num_requests
+
+def query_access_time():
+    # Total access time of the server
+    access_time = db.session.query(Log.access_time).order_by('access_time')
+    first, last = access_time[0], access_time[-1]
+    difference = last[0] - first[0]
+    total_time = difference.seconds
+    return total_time
+
+def query_reqs_sec():
+    # Total access time
+    total_time = query_access_time()
+    
+    num_requests = query_number_of_requests()
+
+    #Converts to float if result will be less than 1
+    if num_requests<total_time:
+        num_requests = float(num_requests)
+        total_time = float(total_time)
+
+    # Number of requests made to the server per second
+    reqs_sec = num_requests/total_time
+
+    return reqs_sec
+
+def query_time_per_request():
+    # Summates rendering time
+    rendering_time = db.session.query(func.sum(Log.publisher_time))
+    total_rendering_time = rendering_time[0][0]
+
+    num_requests = query_number_of_requests()
+
+    #Converts to float if result will be less than 1
+    if total_rendering_time<num_requests:
+        total_rendering_time = float(total_rendering_time)
+        num_requests = float(num_requests)
+    
+    # Total time per request
+    time_per_request = total_rendering_time/num_requests
+    return time_per_request
+
+def query_optimal_requests():
+    # Time per request
+    time_per_request = query_time_per_request()
+    
+    # Total access time
+    total_time = query_access_time()   
+    
+    # Optimal requests
+    optimal_capacity = total_time * (1/time_per_request)
+    optimal_requests = optimal_capacity/total_time
+    return optimal_requests
+
+def query_current_capacity():
+    # Current capacity 
+    return (query_reqs_sec()/query_optimal_requests()) * 100

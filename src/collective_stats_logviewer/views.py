@@ -3,6 +3,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from model import db
+from model import db, query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity
 
 class _DefaultSettings(object):
     USERNAME = 'world'
@@ -16,7 +17,7 @@ del _DefaultSettings
 
 def init_db():
     """ Initialize the database """
-    db.create_all()
+    db.create_all()    
 
 @app.route('/')
 @app.route('/index/')
@@ -25,10 +26,15 @@ def index():
     overall server load stats, as well as basic stats for each offending url.
     More detailed stats for each url are queried and served by 
     response_time_details() using an ajax request"""
+    # Assignment
+    reqs_sec = query_reqs_sec()
+    time_per_request = query_time_per_request()
+    optimal_requests = query_optimal_requests()
+    current_capacity = query_current_capacity()
 
     data_store = {}
-    data_store['instance_stats'] = {'reqs_sec': 1.74011, 'time_per_request': 0.2188, 'optimal_requests': 4.577, 'news': 38.88,
-                                    'time_per_request': 2.46, 'cc_percentage': 32}
+    data_store['instance_stats'] = {'reqs_sec': reqs_sec, 'time_per_request': time_per_request, 'optimal_requests': optimal_requests,
+                                    'cc_percentage': current_capacity}
     data_store['slow_pages'] = [{'url': '/newscenter/inthenewsview', 'avg_time': 38.88},
                                 {'url': '/departments/name', 'avg_time': 31.25}]
     data_store['server_chokers'] = [{'url': '/departments/name/', 'total_server_time': 246.88},
