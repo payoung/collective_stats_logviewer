@@ -16,10 +16,12 @@
     <link rel="stylesheet" type="text/css"
           href="../static/css/bootstrap-responsive.min.css">
   </head>
+
   <body>
     <div class="container">
       <h1>'Speed up yo shit' &mdash; A Dashboard</h1>
       <h2>Instance Summary</h2>
+
       <dl class="summary">
         <dd>Handling <strong>{{ data.instance_stats.reqs_sec }} requests/second</strong>.</dd>
         <dd>Average rendering time: <strong>{{ data.instance_stats.time_per_request}} seconds</strong>.</dd>
@@ -27,6 +29,7 @@
         <!-- put a warning color if more than 50%, error color if more than 75% -->
         <dd>Current Capacity: <span class="text-info">{{ data.instance_stats.cc_percentage }}%</span></dd>
       </dl>
+
       <h3>Slow Pages</h3>
       <!-- ordered by average time to render, longest first -->
       <ol class="url-details-list">
@@ -37,6 +40,7 @@
                 <a href="javascript:void(0);">{{ slow_page.url }}</a>&rArr;
                 <span class="average">Average rendering time: {{ slow_page.avg_time }} seconds</span><!--Add javascript to add error classes based avg render time-->
               </dt>
+
               <dd>Overall rendering time: <span class='overall'></span> seconds</dd>
               <dd>Num hits: <span  class='num-hits'></span></dd>
               <dd>If you cached this page as a middle man, you would save <span class='cached-benefit'></span>% of server load</dd>
@@ -45,12 +49,13 @@
               </dd>
               <dd class="url-graph">
                 <div class="graph-placeholder">
-              </div>
+                </div>
               </dd>
             </dl>
           </li>
         {% endfor %}
       </ol>
+
       <h3>Server Chokers</h3>
       <!-- ordered by Total Server Time, longest first -->
       <ol>
@@ -74,6 +79,7 @@
           </li>
         {% endfor %}
       </ol>
+
       <h3>Memory Hogs</h3>
       <!-- ordered by Memory Used, most first -->
       <ol>
