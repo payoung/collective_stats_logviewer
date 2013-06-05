@@ -2,14 +2,7 @@ ol.url-details-list li{
     clear: both;
 }
 
-.url-details {
-}
-
-.url-graph {
-
-}
-
 .graph-placeholder {
-  width: 800px;
-  height: 900px; 
+  width: 700px;
+  height: 500px; 
 }
