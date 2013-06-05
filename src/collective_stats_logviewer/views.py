@@ -12,14 +12,8 @@ class _DefaultSettings(object):
     SECRET_KEY = 'development key'
     DEBUG = True
 
-# create the application
-app = Flask(__name__)
 app.config.from_object(_DefaultSettings)
 del _DefaultSettings
-
-def init_db():
-    """ Initialize the database """
-    db.create_all()    
 
 @app.route('/')
 @app.route('/index/')
@@ -29,14 +23,13 @@ def index():
     More detailed stats for each url are queried and served by
     response_time_details() using an ajax request"""
     # Assignment
-    reqs_sec = query_reqs_sec()
-    time_per_request = query_time_per_request()
-    optimal_requests = query_optimal_requests()
-    current_capacity = query_current_capacity()
+    #reqs_sec = query_reqs_sec()
+    #time_per_request = query_time_per_request()
+    #optimal_requests = query_optimal_requests()
+    #current_capacity = query_current_capacity()
 
     data_store = {}
-    data_store['instance_stats'] = {'reqs_sec': reqs_sec, 'time_per_request': time_per_request, 'optimal_requests': optimal_requests,
-                                    'cc_percentage': current_capacity}
+    data_store['instance_stats'] = {'reqs_sec': 20, 'time_per_request': 12, 'optimal_requests': 10, 'cc_percentage': 30}
     data_store['slow_pages'] = [{'url': '/newscenter/inthenewsview', 'avg_time': 38.88},
                                 {'url': '/departments/name', 'avg_time': 31.25}]
     data_store['server_chokers'] = [{'url': '/departments/name/', 'total_server_time': 246.88},
@@ -71,10 +64,13 @@ def response_time_details():
     stats_data = {'overall': 42.77, 'num_hits': 14, 'cached_benefit': 1.0003, 'avg': 2.3}
     return jsonify(url=url, graph_data=graph_data, stats_data=stats_data)
 
-
-@app.route('/super_url', methods=['POST'])
+@app.route('/super_url/', methods=['POST'])
 def super_url():
-    line = request.form["line"]
-    item_id = logs.do_it(line)
-    return jsonify(item_id=item_id)
+	line = request.form["line"] 
+	line_number = request.form["line_number"]	
+	do_it(line)
+	return jsonify(line=None, line_number=line_number)
 
+@app.route('/receive_json/', methods=['POST'])
+def receive_json():
+    pass
