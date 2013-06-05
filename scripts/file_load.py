@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 import json
 import fileinput
 import requests
@@ -13,14 +15,15 @@ class Loader(object):
 
     def do_it(self):
 	for line in fileinput.input():
-            d = {"username": self.name, 
-                 "api_key": self.api_key, 
-                 "machine_name": self.machine_name, 
-                 "line": line, 
-                 "line_number": fileinput.filelineno()}
-            result = requests.post(self.api, data=json.dumps(d))
-            self.results.append(result)
-            fileinput.close()
+            if line.count('INFO collective.stats'):
+                d = {"username": self.name, 
+                    "api_key": self.api_key, 
+                    "machine_name": self.machine_name, 
+                    "line": line, 
+                    "line_number": fileinput.filelineno()}
+                result = requests.post(self.api, data=json.dumps(d))
+                self.results.append(result)
+                fileinput.close()
 
                 
 if __name__ == "__main__":
