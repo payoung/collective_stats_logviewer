@@ -3,6 +3,7 @@
 import json
 import fileinput
 import requests
+import logging
 
 
 class Loader(object):
@@ -11,19 +12,18 @@ class Loader(object):
         self.api_key = "sdhufuserhfhrjf"
         self.api = "http://127.0.0.1:5000/super_url"
         self.machine_name = "Terminator"
-        self.results = []
 
     def do_it(self):
+        results = []
 	for line in fileinput.input():
             if line.count('INFO collective.stats'):
-                d = {"username": self.name, 
-                    "api_key": self.api_key, 
-                    "machine_name": self.machine_name, 
-                    "line": line, 
-                    "line_number": fileinput.filelineno()}
-                result = requests.post(self.api, data=json.dumps(d))
-                self.results.append(result)
-                fileinput.close()
+                result = requests.post(self.api, data={'line': line})
+                result = json.loads(result.text)
+                logging.info("Successfully added line with id %s" % result['item_id'])
+                results.append(result)
+        fileinput.close()
+        print results
+        return results
 
                 
 if __name__ == "__main__":

@@ -3,7 +3,9 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from model import db
-from model import db, query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity
+from model import query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity
+import logs
+
 
 class _DefaultSettings(object):
     USERNAME = 'world'
@@ -68,3 +70,11 @@ def response_time_details():
 
     stats_data = {'overall': 42.77, 'num_hits': 14, 'cached_benefit': 1.0003, 'avg': 2.3}
     return jsonify(url=url, graph_data=graph_data, stats_data=stats_data)
+
+
+@app.route('/super_url', methods=['POST'])
+def super_url():
+    line = request.form["line"]
+    item_id = logs.do_it(line)
+    return jsonify(item_id=item_id)
+

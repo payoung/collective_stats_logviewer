@@ -3,16 +3,24 @@ Initialize the database
 =======================
 Step zero: make sure your repo is up to date
 
-Step one: (cd into collective_stats_logviewer) Type in your terminal:
+Step one: (cd into collective_stats_logviewer) Type in your terminal::
 
-./bin/flask-ctl debug initdb
+  ./bin/flask-ctl debug initdb
+
+================
+Import Test Data
+================
+To import test data in the currnet setup, run from the base of the buildout::
+
+  ./bin/python-console scripts/file_load.py instance1.log
+
 
 =====================
 Initialize the server
 =====================
-Type in your terminal:
+Type in your terminal::
 
-./bin/flask-ctl debug fg
+  ./bin/flask-ctl debug fg
 
 
 =======
