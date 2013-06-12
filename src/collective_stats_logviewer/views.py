@@ -70,13 +70,9 @@ def response_time_details():
     stats_data = {'overall': 42.77, 'num_hits': 14, 'cached_benefit': 1.0003, 'avg': 2.3}
     return jsonify(url=url, graph_data=graph_data, stats_data=stats_data)
 
-@app.route('/super_url/', methods=['POST'])
+@app.route('/super_url', methods=['POST'])
 def super_url():
-	line = request.form["line"] 
-	line_number = request.form["line_number"]	
-	do_it(line)
-	return jsonify(line=None, line_number=line_number)
+	line = request.form["line"] 	
+	item_id = logs.do_it(line)
+	return jsonify(item_id = item_id)
 
-@app.route('/receive_json/', methods=['POST'])
-def receive_json():
-    pass

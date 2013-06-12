@@ -2,6 +2,7 @@
 *.db
 *.log
 *.pyo
+*.log.gz
 .installed.cfg
 src/*.egg-info
 buildout-cache
