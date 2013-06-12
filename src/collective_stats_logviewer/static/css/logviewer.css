@@ -1,0 +1,8 @@
+ol.url-details-list li{
+    clear: both;
+}
+
+.graph-placeholder {
+  width: 700px;
+  height: 500px; 
+}
