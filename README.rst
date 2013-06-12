@@ -1,3 +1,14 @@
+============
+Run Buildout
+============
+Clone a copy of this repo. Then::
+
+  > cd collective_stats_logviewer 
+  > /path/to/your/python bootstrap.py
+  > ./bin/buildout
+
+This may take some time as it will get all the requirements you need to un this project!
+
 =======================
 Initialize the database
 =======================
