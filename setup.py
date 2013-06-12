@@ -29,6 +29,7 @@ setup(
         'setuptools',
         'Flask',
         'Flask-SQLAlchemy',
+        'requests',
     ],
     entry_points="""
     [console_scripts]
