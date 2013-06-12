@@ -3,7 +3,7 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from model import db
-from model import query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity
+from model import query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity, get_average_render_time
 import logs
 
 
@@ -33,11 +33,11 @@ def index():
     time_per_request = query_time_per_request()
     optimal_requests = query_optimal_requests()
     current_capacity = query_current_capacity()
+    average_render_time = get_average_render_time()
 
     data_store = {}
     data_store['instance_stats'] = {'reqs_sec': reqs_sec, 'time_per_request': time_per_request, 'optimal_requests': optimal_requests, 'cc_percentage': current_capacity}
-    data_store['slow_pages'] = [{'url': '/newscenter/inthenewsview', 'avg_time': 38.88},
-                                {'url': '/departments/name', 'avg_time': 31.25}]
+    data_store['slow_pages'] = average_render_time
     data_store['server_chokers'] = [{'url': '/departments/name/', 'total_server_time': 246.88},
                                    {'url': '/departments/ners/', 'total_server_time': 166.87}]
     data_store['memory_hogs'] = [{'url': '/departments/cheme/', 'memory_used': 8.76},

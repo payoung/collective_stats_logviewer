@@ -118,3 +118,10 @@ def query_current_capacity():
     if not optimal_requests:
         return 0
     return (query_reqs_sec()/optimal_requests) * 100
+
+def get_average_render_time():
+    """Takes the webpages and returns average time rendered 
+        from the datbase""" 
+    average = db.session.query(func.avg(Log.publisher_time).label("average"), Log.url).group_by(Log.url).order_by("-average").limit(10).all()
+    return average
+
