@@ -142,3 +142,16 @@ def get_response_time_details(url):
         new_dict = dict(zip(('timestamp', 'render_time'), (time, rt)))
         dict_list.append(new_dict)
     return dict_list
+
+
+def get_overall_time(url):
+    """Gets the overall time needed for the url to be called"""
+    overall = db.session.query(func.sum(Log.publisher_time)).filter(Log.url == url).all()
+    return overall
+    
+
+def get_total_hits(url):
+    """Gets the total hits based the url recieved"""
+    num_rows = db.session.query(Log).filter(Log.url == url).count()
+    return num_rows
+
