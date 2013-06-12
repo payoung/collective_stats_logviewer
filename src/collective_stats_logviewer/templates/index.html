@@ -23,11 +23,11 @@
       <h2>Instance Summary</h2>
 
       <dl class="summary">
-        <dd>Handling <strong>{{ data.instance_stats.reqs_sec }} requests/second</strong>.</dd>
-        <dd>Average rendering time: <strong>{{ data.instance_stats.time_per_request}} seconds</strong>.</dd>
-        <dd>Should be able to handle <strong>{{ data.instance_stats.optimal_requests }} requests/sec</strong>.</dd>
+        <dd>Handling <strong>{{ data.instance_stats.reqs_sec | round(2, 'common') }} requests/second</strong>.</dd>
+        <dd>Average rendering time: <strong>{{ data.instance_stats.time_per_request| round(2, 'common') }} seconds</strong>.</dd>
+        <dd>Should be able to handle <strong>{{ data.instance_stats.optimal_requests| round(2, 'common') }} requests/sec</strong>.</dd>
         <!-- put a warning color if more than 50%, error color if more than 75% -->
-        <dd>Current Capacity: <span class="text-info">{{ data.instance_stats.cc_percentage }}%</span></dd>
+        <dd>Current Capacity: <span class="text-info">{{ data.instance_stats.cc_percentage| round(2, 'common') }}%</span></dd>
       </dl>
 
       <h3>Slow Pages</h3>
@@ -37,8 +37,8 @@
           <li>
             <dl class="url-details">
               <dt class="url-help">
-                <a href="javascript:void(0);">{{ slow_page.url }}</a>&rArr;
-                <span class="average">Average rendering time: {{ slow_page.avg_time }} seconds</span><!--Add javascript to add error classes based avg render time-->
+                <a href="javascript:void(0);">{{ slow_page[1] }}</a>&rArr;
+                <span class="average">Average rendering time: {{ slow_page[0] }} seconds</span><!--Add javascript to add error classes based avg render time-->
               </dt>
 
               <dd>Overall rendering time: <span class='overall'></span> seconds</dd>

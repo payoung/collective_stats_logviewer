@@ -8,14 +8,14 @@ import logging
 
 class Loader(object):
     def __init__(self):
-	self.name = "Ahmad"
+        self.name = "Ahmad"
         self.api_key = "sdhufuserhfhrjf"
         self.api = "http://127.0.0.1:5000/super_url"
         self.machine_name = "Terminator"
 
     def do_it(self):
         results = []
-	for line in fileinput.input():
+        for line in fileinput.input():
             if line.count('INFO collective.stats'):
                 result = requests.post(self.api, data={'line': line})
                 result = json.loads(result.text)
