@@ -133,7 +133,6 @@ def get_average_render_time():
 
 def get_response_time_details(url):
     """Takes the url from the webpage and returns timestamp and render time"""
-    #import pdb; pdb.set_trace()
     dict_list = []
     response_time = db.session.query(Log.access_time.label("timestamp"), Log.publisher_time).filter(Log.url == url).order_by("timestamp").all()
     for row in response_time:
