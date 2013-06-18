@@ -1,11 +1,14 @@
+import json
+import logging
 from flask import render_template
 from flask import Flask
 from flask import jsonify
 from flask import request
-from model import db
-from model import query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity, get_average_render_time
 import logs
+from model import db
+from model import query_reqs_sec, query_time_per_request, query_optimal_requests, query_current_capacity, get_average_render_time, get_response_time_details, get_overall_time, get_total_hits
 
+logging.basicConfig(level=logging.INFO)
 
 class _DefaultSettings(object):
     USERNAME = 'world'
@@ -54,25 +57,19 @@ def response_time_details():
     that url."""
 
     url = request.args.get('url', '')
+    response_time_details = get_response_time_details(url)
+    overall_time = get_overall_time(url)
+    total_hits = get_total_hits(url)
 
-    graph_data = [
-       { "timestamp": "2013-02-18T20:18:15",
-           "render_time": "0.7223",
-       },
-       { "timestamp": "2013-02-18T20:18:25",
-           "render_time": "1.4157",
-       },
-       { "timestamp": "2013-02-18T20:21:14",
-           "render_time": "4.567",
-       }
-    ]
+    graph_data = response_time_details
 
-    stats_data = {'overall': 42.77, 'num_hits': 14, 'cached_benefit': 1.0003, 'avg': 2.3}
+    stats_data = {'overall': overall_time, 'num_hits': total_hits, 'cached_benefit': 1.0003, 'avg': 2.3}
     return jsonify(url=url, graph_data=graph_data, stats_data=stats_data)
 
 @app.route('/super_url', methods=['POST'])
 def super_url():
-	line = request.form["line"] 	
-	item_id = logs.do_it(line)
-	return jsonify(item_id = item_id)
+    log_lines = json.loads(request.data)
+    logging.info('views.py -- Received request from file_upload.py, sending to database')
+    commited_logs = logs.do_it(log_lines)
+    return "%s lines commited to the database" % commited_logs
 
