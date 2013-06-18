@@ -125,3 +125,4 @@ def get_average_render_time():
     average = db.session.query(func.avg(Log.publisher_time).label("average"), Log.url).group_by(Log.url).order_by("-average").limit(10).all()
     return average
 
+
